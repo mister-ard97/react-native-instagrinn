@@ -55,24 +55,31 @@ export const registerUser = (email, username, password, conPassword) => {
                             displayName: username,
                             photoURL: 'https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg'
                         })
-                            .then(() => {
-                                dispatch({
-                                    type: REGISTER_USER_SUCCESS
-                                })
-                                dispatch({
-                                    type: LOGIN_USER_SUCCESS,
-                                    payload: user
-                                })
-                                console.log('Update Profile Success')
-                                console.log(user)
+                        .then(() => {
+                            dispatch({
+                                type: REGISTER_USER_SUCCESS
                             })
-                            .catch((err) => {
-                                console.log(err);
-                                dispatch({
-                                    type: REGISTER_USER_FAIL,
-                                    payload: err.message
-                                })
+                            dispatch({
+                                type: LOGIN_USER_SUCCESS,
+                                payload: user
                             })
+                            console.log('Update Profile Success')
+                            console.log(user)
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            dispatch({
+                                type: REGISTER_USER_FAIL,
+                                payload: err.message
+                            })
+                        })
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        dispatch({
+                            type: REGISTER_USER_FAIL,
+                            payload: err.message
+                        })
                     })
             } else {
                 dispatch({ type: REGISTER_USER_FAIL, payload: 'Password and Confirm Password must be same!' })
