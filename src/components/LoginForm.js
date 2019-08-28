@@ -3,6 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 
 class LoginForm extends Component {
+    state = {
+        pasHidden: true
+    }
     render() {
         const { containerStyle, inputStyle } = styles
         return (
@@ -15,18 +18,26 @@ class LoginForm extends Component {
                             <Icon
                                 name='email'
                                 size={24}
-                                color='black'
+                                color='#4298f5'
                             />
                         }
                     />
                     <Input
-                        secureTextEntry
+                        secureTextEntry={this.state.pasHidden}
                         placeholder='Password'
                         leftIcon={
                             <Icon
                                 name='lock'
                                 size={24}
-                                color='black'
+                                color='#4298f5'
+                            />
+                        }
+                        rightIcon={
+                            <Icon
+                                name={this.state.pasHidden ? 'visibility-off' : 'visibility'}
+                                size={24}
+                                color={this.state.pasHidden ? '#bfc3c9' : '#4388d6'}
+                                onPress={() => this.setState({ pasHidden: !this.state.pasHidden })}
                             />
                         }
                     />
@@ -35,8 +46,8 @@ class LoginForm extends Component {
                     icon={
                         <Icon
                             name="login"
-                            size={15}
-                            color="black"
+                            size={20}
+                            color="white"
                             type='antdesign'
                             iconStyle={{ marginRight: 10 }}
                         />

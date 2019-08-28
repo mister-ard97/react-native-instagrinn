@@ -6,8 +6,8 @@ import {
 
 const INITIAL_STATE = {
     user: null,
-    loading: null, 
-    checkedAuth: null
+    loading: false, 
+    checkedAuth: false
 }
 
 export default (state = INITIAL_STATE, action) => {

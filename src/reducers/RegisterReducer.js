@@ -1,7 +1,6 @@
 import {
     EMAIL_REGISTER_CHANGED,
     USERNAME_REGISTER_CHANGED,
-    PASSWORD_LOGIN_CHANGED,
     CON_PASSWORD_REGISTER_CHANGED,
     REGISTER_USER,
     REGISTER_USER_FAIL,
@@ -55,8 +54,8 @@ export default (state = INITIAL_STATE, action) => {
             }
         case REGISTER_USER_SUCCESS:
             return {
-                ...state,
-                loading: false
+                ...INITIAL_STATE,
+                loading: false,
             }
         default:
             return state;
