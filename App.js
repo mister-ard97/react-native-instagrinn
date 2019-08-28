@@ -5,10 +5,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './src/reducers';
 
-const store = createStore(reducers, {}, applyMiddleware(thunk))
+
 
 class App extends Component {
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(thunk))
     return (
        <Provider store={store}>
          <AppInit />
