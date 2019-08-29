@@ -56,6 +56,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...INITIAL_STATE,
                 loading: false,
+                error: ''
             }
         default:
             return state;

@@ -17,7 +17,9 @@ class AppInit extends Component {
             appId: "1:563176941251:web:3330209119b24a4b"
         };
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        if(!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
     }
     render() {
         return (

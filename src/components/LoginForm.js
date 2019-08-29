@@ -1,11 +1,53 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
+import {
+    loginUser,
+    emailLoginChanged,
+    passwordLoginChanged
+} from '../actions'
 
 class LoginForm extends Component {
     state = {
         pasHidden: true
     }
+
+    componentDidUpdate = () => {
+        if (this.props.user) {
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: 'MainMenu'
+                    })
+                ]
+            })
+
+            this.props.navigation.dispatch(resetAction)
+        }
+    }
+
+    renderError() {
+        if (this.props.error) {
+            return (
+                <View style={{ marginBottom: 15 }}>
+                    <Text style={{ color: 'red' }}>
+                        {this.props.error}
+                    </Text>
+                </View>
+            )
+        }
+    }
+
+    onBtnLoginPress = () => {
+        this.props.loginUser(
+            this.props.email,
+            this.props.password
+        )
+    }
+
     render() {
         const { containerStyle, inputStyle } = styles
         return (
@@ -21,6 +63,8 @@ class LoginForm extends Component {
                                 color='#4298f5'
                             />
                         }
+                        value={this.props.email}
+                        onChangeText = {(text) => this.props.emailLoginChanged(text)}
                     />
                     <Input
                         secureTextEntry={this.state.pasHidden}
@@ -40,8 +84,11 @@ class LoginForm extends Component {
                                 onPress={() => this.setState({ pasHidden: !this.state.pasHidden })}
                             />
                         }
+                        value={this.props.password}
+                        onChangeText={(text) => this.props.passwordLoginChanged(text)}
                     />
                 </View>
+                {this.renderError()}
                 <Button
                     icon={
                         <Icon
@@ -54,6 +101,8 @@ class LoginForm extends Component {
                     }
                     title="Login"
                     //type="outline"
+                    loading={this.props.loading}
+                    onPress={this.onBtnLoginPress}
                     containerStyle={{ width: '95%', backgroundColor: '#4298f5', marginBottom: 10 }}
                     
                 />
@@ -91,4 +140,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginForm;
+const mapStateToProps = ({loginForm, auth}) => {
+    return {
+        email: loginForm.email,
+        password: loginForm.password,
+        loading: loginForm.loading,
+        error: loginForm.error,
+        user: auth.user
+    }
+}
+
+export default connect(mapStateToProps, {
+    emailLoginChanged,
+    passwordLoginChanged,
+    loginUser
+})(LoginForm);
