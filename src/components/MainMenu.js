@@ -5,7 +5,7 @@ import Home from './Home';
 import PostPhoto from './PostPhoto';
 import ProfileDrawer from './ProfileDrawer';
 
-export default createBottomTabNavigator(
+export default createAppContainer(createBottomTabNavigator(
     {
         Home: Home,
         PostPhoto: PostPhoto,
@@ -24,8 +24,8 @@ export default createBottomTabNavigator(
                     // You can check the implementation below.
                 } else if (routeName === 'PostPhoto') {
                     iconName = `add-box`;
-                } else if(routeName === 'Profile') {
-                    iconName= `account-box`
+                } else if (routeName === 'Profile') {
+                    iconName = `account-box`
                 }
 
                 // You can return any component that you like here!
@@ -38,4 +38,4 @@ export default createBottomTabNavigator(
             showLabel: false
         },
     }
-);
+));

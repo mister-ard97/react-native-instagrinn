@@ -5,40 +5,44 @@ import { connect } from 'react-redux';
 
 class Profile extends Component {
     render() {
-        return (
-            <View>
-                <Header
-                    leftComponent={{ 
-                        text: this.props.user.user.displayName, 
-                        style: {
+        if(this.props.user) {
+            return (
+                <View>
+                    <Header
+                        leftComponent={{
+                            text: this.props.user.user.displayName,
+                            style: {
+                                color: 'black',
+                                fontSize: 18
+                            }
+                        }}
+                        leftContainerStyle={{ flex: 3 }}
+                        rightComponent={{
+                            icon: 'menu',
                             color: 'black',
-                            fontSize: 18
-                        }
-                    }}
-                    leftContainerStyle={{flex: 3}}
-                    rightComponent={{ 
-                        icon: 'menu', 
-                        color: 'black',
-                        onPress:() => this.props.navigation.toggleDrawer()
-                    }}
-                    containerStyle={{
-                        backgroundColor: '#fff',
-                        justifyContent: 'space-around',
-                        marginTop: Platform.OS === 'ios' ? 0 : -30
-                    }}
-                />
-                <ListItem
-                    leftAvatar={{
-                        source: { uri: this.props.user.user.photoURL },
-                        showEditButton: true,
-                        size: 'large'
-                    }}
-                    title={this.props.user.user.displayName}
-                    subtitle={'Instagrin User'}
-                />
-            </View>
-        )
-    }
+                            onPress: () => this.props.navigation.toggleDrawer()
+                        }}
+                        containerStyle={{
+                            backgroundColor: '#fff',
+                            justifyContent: 'space-around',
+                            marginTop: Platform.OS === 'ios' ? 0 : -30
+                        }}
+                    />
+                    <ListItem
+                        leftAvatar={{
+                            source: { uri: this.props.user.user.photoURL },
+                            showEditButton: true,
+                            size: 'large'
+                        }}
+                        title={this.props.user.user.displayName}
+                        subtitle={'Instagrin User'}
+                    />
+                </View>
+            )
+        }
+
+        return <View />
+    }   
 }
 
 const mapStateToProps = ({auth}) => {

@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 import Profile from './Profile';
 import Settings from './Settings';
 
-const ProfileDrawer = createDrawerNavigator(
+const ProfileDrawer = createAppContainer(createDrawerNavigator(
     {
         Profile: {
             screen: Profile,
@@ -32,6 +32,6 @@ const ProfileDrawer = createDrawerNavigator(
             borderWidth: 1
         }
     }
-)
+))
 
 export default ProfileDrawer;
