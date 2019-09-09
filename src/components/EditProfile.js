@@ -46,12 +46,17 @@ class EditProfile extends Component {
                 this.props.username,
                 this.props.profileImage
             )
+        } else {
+            this.props.saveUpdatedProfile(
+                this.props.username,
+                null
+            )
         }
     }
 
     componentDidUpdate() {
         if(this.props.profileUpdated) {
-            this.props.navigation.navigate.goBack();
+            this.props.navigation.goBack();
         }
     }
 

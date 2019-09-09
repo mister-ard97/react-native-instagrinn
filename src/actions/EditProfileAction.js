@@ -97,6 +97,7 @@ export const saveUpdatedProfile = (username, profileImage) => {
                         photoURL: url
                     })
                     .then(() => {
+                        // set function firebase akan meniban semua data.
                         return firebase.database().ref(`/users/${currentUser.uid}`)
                             .once('value', snapshot => {
                                 var id = Object.keys(snapshot.val())[0]
@@ -131,7 +132,36 @@ export const saveUpdatedProfile = (username, profileImage) => {
                     })
                 })  
         } else {
-           
+            currentUser.updateProfile({
+                displayName: username
+            })
+            .then(() => {
+                return firebase.database().ref(`/users/${currentUser.uid}`)
+                    .once('value', snapshot => {
+                        var id = Object.keys(snapshot.val())[0]
+                        return firebase.database().ref(`/users/${currentUser.uid}/${id}`)
+                            .set({
+                                displayName: username,
+                                photoURL: currentUser.photoURL
+                            })
+                    })
+            })
+            .then(() => {
+                dispatch({
+                    type: EDIT_PROFILE_SUCCESS
+                })
+                dispatch({
+                    type: LOGIN_USER_SUCCESS,
+                    payload: { user: currentUser }
+                })
+            })
+            .catch((err) => {
+                console.log(error)
+                dispatch({
+                    type: EDIT_PROFILE_FAIL,
+                    payload: error.message
+                })
+            })
         }
     }
 }
