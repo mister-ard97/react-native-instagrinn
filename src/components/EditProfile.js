@@ -31,6 +31,15 @@ class EditProfile extends Component {
                         marginTop: Platform.OS === 'ios' ? 0 : -30
                     }}
                 />
+                <View style={{ alignItems: 'center'}} >
+                    <Image 
+                        source={{uri: this.props.profileImage}} 
+                        style={{width: 80, height: 80, borderRadius: 80}}
+                    />
+                    <Text style={{ color: '#4388d6', fontSize: 17, paddingTop: 10 }}>
+                        Change Profile Photo
+                    </Text>
+                </View>
             </View>
         )
     }
