@@ -57,28 +57,42 @@ class EditProfile extends Component {
                 <Overlay 
                     isVisible={this.props.modalShow}
                     onBackdropPress={() => this.props.modalClosing()}
+                    height={'auto'}
                 >
-                    <Button
-                        icon={
-                            <Icon
-                                name="photo-library"
-                                size={30}
-                                color='white'
-                            />
-                        }
-                        title='Select from Gallery'
-                        containerStyle={{ marginBottom: 15 }}
-                    />
-                    <Button
-                        icon={
-                            <Icon
-                                name="photo-camera"
-                                size={30}
-                                color='white'
-                            />
-                        }
-                        title='Open Camera'
-                    />
+                   <Text
+                        style={{
+                            fontSize: 18,
+                            borderBottomColor: '#cfcfcf',
+                            paddingBottom: 10,
+                            borderBottomWidth: 1,
+                            fontWeight:'800'
+                        }}
+                   >
+                       Change Profile Photo
+                   </Text>
+                  <TouchableWithoutFeedback
+                    onPress={}
+                  >
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Select From Gallery
+                   </Text>
+                  </TouchableWithoutFeedback>
+
+                   <TouchableWithoutFeedback>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Open Camera
+                        </Text>
+                   </TouchableWithoutFeedback>
                 </Overlay>
             </View>
         )
