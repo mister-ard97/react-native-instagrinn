@@ -5,7 +5,8 @@ import {
     EDIT_PROFILE_SUCCESS,
     USERNAME_PROFILE_CHANGED,
     IMAGE_PROFILE_CHANGED,
-    MODAL_SHOW
+    MODAL_SHOW,
+    MODAL_CLOSE
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -32,6 +33,8 @@ export default (state=INITIAL_STATE, action) => {
             return {...INITIAL_STATE, loading: false}
         case MODAL_SHOW: 
             return {...state, modalShow: true}
+        case MODAL_CLOSE:
+            return {...state, modalShow: false}
         default:
             return state
     }
