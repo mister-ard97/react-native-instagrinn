@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import '@firebase/auth';
 
 import {
-    LOGOUT_USER
+    LOGOUT_USER, LOGIN_USER_SUCCESS, NOT_LOGIN_YET
 } from './types';
 
 export const logoutUser = () => {
@@ -13,3 +13,16 @@ export const logoutUser = () => {
         }) 
     }
 }
+
+export const alreadyLogin = (user) => {
+    return {
+        type: LOGIN_USER_SUCCESS,
+        payload: user
+    }
+}
+
+export const notLoginYet = () => {
+    return {
+        type: NOT_LOGIN_YET
+    };
+};

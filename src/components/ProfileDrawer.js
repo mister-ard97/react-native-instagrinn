@@ -3,6 +3,7 @@ import { createDrawerNavigator, createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements'
 import Profile from './Profile';
 import Settings from './Settings';
+import EditProfile from './EditProfile';
 
 const ProfileDrawer = createAppContainer(createDrawerNavigator(
     {
@@ -19,6 +20,12 @@ const ProfileDrawer = createAppContainer(createDrawerNavigator(
                 drawerIcon: ({ tintColor }) => (
                     <Icon name={'cog'} type='font-awesome' size={25} />
                 )
+            }
+        }, 
+        EditProfile: {
+            screen: EditProfile,
+            navigationOptions: {
+                drawerLabel: () => null
             }
         }
     },

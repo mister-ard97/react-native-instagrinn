@@ -51,79 +51,89 @@ class LoginForm extends Component {
 
     render() {
         const { containerStyle, inputStyle } = styles
+        if(this.props.checkedAuth && !this.props.user) {
+            return (
+                <View style={containerStyle}>
+                    <Animatable.Text animation={'fadeInDown'}>
+                        <Text h3 h3Style={{ color: '#4298f5' }}>Instagrin</Text>
+                    </Animatable.Text>
+                    <Animatable.View style={inputStyle}>
+                        <Input
+                            placeholder='Email'
+                            leftIcon={
+                                <Icon
+                                    name='email'
+                                    size={24}
+                                    color='#4298f5'
+                                />
+                            }
+                            value={this.props.email}
+                            onChangeText={(text) => this.props.emailLoginChanged(text)}
+                        />
+                        <Input
+                            secureTextEntry={this.state.pasHidden}
+                            placeholder='Password'
+                            leftIcon={
+                                <Icon
+                                    name='lock'
+                                    size={24}
+                                    color='#4298f5'
+                                />
+                            }
+                            rightIcon={
+                                <Icon
+                                    name={this.state.pasHidden ? 'visibility-off' : 'visibility'}
+                                    size={24}
+                                    color={this.state.pasHidden ? '#bfc3c9' : '#4388d6'}
+                                    onPress={() => this.setState({ pasHidden: !this.state.pasHidden })}
+                                />
+                            }
+                            value={this.props.password}
+                            onChangeText={(text) => this.props.passwordLoginChanged(text)}
+                        />
+                    </Animatable.View>
+                    {this.renderError()}
+                    <Button
+                        icon={
+                            <Icon
+                                name="login"
+                                size={20}
+                                color="white"
+                                type='antdesign'
+                                iconStyle={{ marginRight: 10 }}
+                            />
+                        }
+                        title="Login"
+                        //type="outline"
+                        loading={this.props.loading}
+                        onPress={this.onBtnLoginPress}
+                        containerStyle={{ width: '95%', backgroundColor: '#4298f5', marginBottom: 10 }}
+
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name="adduser"
+                                size={15}
+                                color="black"
+                                type='antdesign'
+                                iconStyle={{ marginRight: 10 }}
+                            />
+                        }
+                        title="Register"
+                        type="outline"
+                        containerStyle={{ width: '95%' }}
+                        onPress={() => this.props.navigation.navigate('Register')}
+                    />
+                </View>
+            )
+        }
+
         return (
             <View style={containerStyle}>
-                <Animatable.Text animation={'fadeInDown'}>
-                    <Text h3 h3Style={{ color: '#4298f5' }}>Instagrin</Text>
+                <Animatable.Text animation={'bounce'} iterationCount={'infinite'}>
+                    <Text h3 h3Style={{color: '#4388d6'}}>Authenticating...</Text>
                 </Animatable.Text>
-                <Animatable.View style={inputStyle}>
-                    <Input
-                        placeholder='Email'
-                        leftIcon={
-                            <Icon
-                                name='email'
-                                size={24}
-                                color='#4298f5'
-                            />
-                        }
-                        value={this.props.email}
-                        onChangeText = {(text) => this.props.emailLoginChanged(text)}
-                    />
-                    <Input
-                        secureTextEntry={this.state.pasHidden}
-                        placeholder='Password'
-                        leftIcon={
-                            <Icon
-                                name='lock'
-                                size={24}
-                                color='#4298f5'
-                            />
-                        }
-                        rightIcon={
-                            <Icon
-                                name={this.state.pasHidden ? 'visibility-off' : 'visibility'}
-                                size={24}
-                                color={this.state.pasHidden ? '#bfc3c9' : '#4388d6'}
-                                onPress={() => this.setState({ pasHidden: !this.state.pasHidden })}
-                            />
-                        }
-                        value={this.props.password}
-                        onChangeText={(text) => this.props.passwordLoginChanged(text)}
-                    />
-                </Animatable.View>
-                {this.renderError()}
-                <Button
-                    icon={
-                        <Icon
-                            name="login"
-                            size={20}
-                            color="white"
-                            type='antdesign'
-                            iconStyle={{ marginRight: 10 }}
-                        />
-                    }
-                    title="Login"
-                    //type="outline"
-                    loading={this.props.loading}
-                    onPress={this.onBtnLoginPress}
-                    containerStyle={{ width: '95%', backgroundColor: '#4298f5', marginBottom: 10 }}
-                    
-                />
-                <Button
-                    icon={
-                        <Icon
-                            name="adduser"
-                            size={15}
-                            color="black"
-                            type='antdesign'
-                            iconStyle={{marginRight: 10 }}
-                        />
-                    }
-                    title="Register"
-                    type="outline"
-                    containerStyle={{ width: '95%' }}
-                    onPress={() => this.props.navigation.navigate('Register')}
-                />
             </View>
         )
     }
@@ -149,7 +159,8 @@ const mapStateToProps = ({loginForm, auth}) => {
         password: loginForm.password,
         loading: loginForm.loading,
         error: loginForm.error,
-        user: auth.user
+        user: auth.user,
+        checkedAuth: auth.checkedAuth
     }
 }
 

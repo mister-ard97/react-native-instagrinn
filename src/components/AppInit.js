@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View } from 'react-native'
 import firebase from 'firebase';
+import 'firebase/auth'
+import { connect } from 'react-redux';
+import {alreadyLogin, notLoginYet} from '../actions';
 import Main from './Main';
-
 
 class AppInit extends Component {
     componentDidMount() {
@@ -20,7 +22,19 @@ class AppInit extends Component {
         if(!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
+
+        // untuk mengecek apakah user telah login atau belum
+        // Kalo sudah login maka terus login
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user) {
+                // { user }
+                this.props.alreadyLogin({ user });
+            } else {
+                this.props.notLoginYet();
+            }
+        })
     }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -31,4 +45,7 @@ class AppInit extends Component {
 }
 
 
-export default AppInit;
+export default connect(null , {
+    alreadyLogin,
+    notLoginYet
+})(AppInit);

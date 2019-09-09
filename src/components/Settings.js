@@ -42,7 +42,7 @@ class Settings extends Component {
                 <Button 
                     icon={{
                         name: 'logout',
-                        type: 'ant-design',
+                        type: 'antdesign',
                         size: 25,
                         color: '#4388d6'
                     }}

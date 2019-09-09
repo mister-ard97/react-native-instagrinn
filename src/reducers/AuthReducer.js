@@ -1,7 +1,8 @@
 import {
     LOGIN_USER_SUCCESS,
     LOGOUT_USER,
-    LOGIN_USER_FAIL
+    LOGIN_USER_FAIL,
+    NOT_LOGIN_YET
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,11 @@ export default (state = INITIAL_STATE, action) => {
                 checkedAuth: true
             }
         case LOGIN_USER_FAIL:
+            return {
+                ...INITIAL_STATE,
+                checkedAuth: true
+            }
+        case NOT_LOGIN_YET: 
             return {
                 ...INITIAL_STATE,
                 checkedAuth: true
