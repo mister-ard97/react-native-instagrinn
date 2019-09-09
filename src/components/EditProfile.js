@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Platform, Image } from 'react-native';
-import { Header, ListItem, Button, Input } from 'react-native-elements';
+import { Header, ListItem, Button, Input, Overlay } from 'react-native-elements';
+import { connect } from 'react-redux';
+import {usernameEditProfileChanged } from '../actions';
 
 
 class EditProfile extends Component {
@@ -40,9 +42,26 @@ class EditProfile extends Component {
                         Change Profile Photo
                     </Text>
                 </View>
+                <View style={{paddingTop: 15}}>
+                    <Text style={{paddingLeft: 15 }}>Username</Text>
+                    <Input 
+                        placeholder='Username'
+                        value={this.props.username}
+                        onChangeText={(text) => this.props.usernameEditProfileChanged(text)}
+                    />
+                </View>
             </View>
         )
     }
 }
 
-export default EditProfile;
+const mapStateToProps = ({ editProfile }) => {
+    return {
+        username: editProfile.username,
+        profileImage: editProfile.profileImage,
+        loading: editProfile.loading,
+        error: editProfile.error
+    }
+}
+
+export default connect(mapStateToProps, { usernameEditProfileChanged })(EditProfile);
