@@ -44,7 +44,7 @@ export const loginUser = (email, password) => {
                 })
             })
         } else {
-            dispatch({ type: REGISTER_USER_FAIL, payload: 'All Form Must be Filled!' })
+            dispatch({ type: LOGIN_USER_FAIL, payload: 'All Form Must be Filled!' })
         }
     }
 }

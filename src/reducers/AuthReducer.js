@@ -1,6 +1,6 @@
 import {
     LOGIN_USER_SUCCESS,
-    LOGIN_USER,
+    LOGOUT_USER,
     LOGIN_USER_FAIL
 } from '../actions/types';
 
@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
                 user: action.payload, 
                 checkedAuth: true
             }
-        case LOGIN_USER:
+        case LOGOUT_USER:
             return {
                 ...INITIAL_STATE,
                 checkedAuth: true

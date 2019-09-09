@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import MainMenuPage from './MainMenu';
+import MainMenu from './MainMenu';
 
 export default createAppContainer(createStackNavigator(
     {
@@ -13,7 +13,7 @@ export default createAppContainer(createStackNavigator(
             screen: RegisterForm
         },
         MainMenu: {
-            screen: MainMenuPage
+            screen: ({ navigation }) => <MainMenu screenProps={{ rootStackNavigator: navigation }}/>
         }
     },
     {

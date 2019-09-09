@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation';
+import * as Animatable from 'react-native-animatable';
 import {
     loginUser,
     emailLoginChanged,
@@ -52,8 +53,10 @@ class LoginForm extends Component {
         const { containerStyle, inputStyle } = styles
         return (
             <View style={containerStyle}>
-                <Text h3 h3Style={{ color: '#4298f5' }}>Instagrin</Text>
-                <View style={inputStyle}>
+                <Animatable.Text animation={'fadeInDown'}>
+                    <Text h3 h3Style={{ color: '#4298f5' }}>Instagrin</Text>
+                </Animatable.Text>
+                <Animatable.View style={inputStyle}>
                     <Input
                         placeholder='Email'
                         leftIcon={
@@ -87,7 +90,7 @@ class LoginForm extends Component {
                         value={this.props.password}
                         onChangeText={(text) => this.props.passwordLoginChanged(text)}
                     />
-                </View>
+                </Animatable.View>
                 {this.renderError()}
                 <Button
                     icon={

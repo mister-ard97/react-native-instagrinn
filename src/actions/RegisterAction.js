@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import '@firebase/auth';
+import '@firebase/database';
 import {
     EMAIL_REGISTER_CHANGED,
     USERNAME_REGISTER_CHANGED,
@@ -56,15 +57,30 @@ export const registerUser = (email, username, password, conPassword) => {
                             photoURL: 'https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg'
                         })
                         .then(() => {
-                            dispatch({
-                                type: REGISTER_USER_SUCCESS
-                            })
-                            dispatch({
-                                type: LOGIN_USER_SUCCESS,
-                                payload: user
-                            })
+                                firebase.database().ref(`/users/${user.user.uid}`)
+                                .push({
+                                    displayName: username,
+                                    photoURL: 'https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg'
+                                })
+                                .then(() => {
+                                    dispatch({
+                                        type: REGISTER_USER_SUCCESS
+                                    })
+                                    dispatch({
+                                        type: LOGIN_USER_SUCCESS,
+                                        payload: user
+                                    })
+                                    console.log('Saved in Firebase Database')
+                                    
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    dispatch({
+                                        type: REGISTER_USER_FAIL,
+                                        payload: err.message
+                                    })
+                                })
                             console.log('Update Profile Success')
-                            console.log(user)
                         })
                         .catch((err) => {
                             console.log(err);

@@ -12,7 +12,7 @@ class AppInit extends Component {
             authDomain: "instagrinn-bda3b.firebaseapp.com",
             databaseURL: "https://instagrinn-bda3b.firebaseio.com",
             projectId: "instagrinn-bda3b",
-            storageBucket: "",
+            storageBucket: "instagrinn-bda3b.appspot.com",
             messagingSenderId: "563176941251",
             appId: "1:563176941251:web:3330209119b24a4b"
         };
