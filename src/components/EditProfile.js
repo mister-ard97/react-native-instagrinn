@@ -2,10 +2,59 @@ import React, { Component } from 'react';
 import { View, Text, Platform, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, ListItem, Button, Input, Overlay, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import {usernameEditProfileChanged, modalShowing, modalClosing } from '../actions';
+import ImagePicker from 'react-native-image-crop-picker';
+import {
+    usernameEditProfileChanged, 
+    modalShowing, 
+    modalClosing, 
+    imageEditProfileChanged,
+    saveUpdatedProfile
+ } from '../actions';
 
 
 class EditProfile extends Component {
+    openGallery = () => {
+        ImagePicker.openPicker({
+            width: 700,
+            height: 700,
+            cropping: true,
+            mediaType: 'photo'
+        }).then(img => {
+            this.props.imageEditProfileChanged(img.path)
+            this.props.modalClosing()
+        }).catch(cancel => {
+            console.log(cancel)
+        })
+    }
+
+    openCamera = () => {
+        ImagePicker.openCamera({
+            width: 700,
+            height: 700,
+            cropping: true,
+        }).then(img => {
+            this.props.imageEditProfileChanged(img.path)
+            this.props.modalClosing()
+        }).catch(cancel => {
+            console.log(cancel)
+        })
+    }
+
+    onIconSavePress = () => {
+        if(this.props.oldPhoto !== this.props.profileImage) {
+            this.props.saveUpdatedProfile(
+                this.props.username,
+                this.props.profileImage
+            )
+        }
+    }
+
+    componentDidUpdate() {
+        if(this.props.profileUpdated) {
+            this.props.navigation.navigate.goBack();
+        }
+    }
+
     render() {
         return (
             <View>
@@ -25,7 +74,8 @@ class EditProfile extends Component {
                     }}
                     rightComponent={{
                         icon: 'done',
-                        color: '#4388d6'
+                        color: '#4388d6',
+                        onPress: this.onIconSavePress
                     }}
                     containerStyle={{
                         backgroundColor: '#fff',
@@ -71,7 +121,7 @@ class EditProfile extends Component {
                        Change Profile Photo
                    </Text>
                   <TouchableWithoutFeedback
-                    onPress={}
+                    onPress={this.openGallery}
                   >
                         <Text
                             style={{
@@ -83,7 +133,9 @@ class EditProfile extends Component {
                    </Text>
                   </TouchableWithoutFeedback>
 
-                   <TouchableWithoutFeedback>
+                   <TouchableWithoutFeedback
+                    onPress={this.openCamera}
+                   >
                         <Text
                             style={{
                                 fontSize: 16,
@@ -99,16 +151,23 @@ class EditProfile extends Component {
     }
 }
 
-const mapStateToProps = ({ editProfile }) => {
+const mapStateToProps = ({ editProfile, auth }) => {
     return {
         username: editProfile.username,
         profileImage: editProfile.profileImage,
         loading: editProfile.loading,
         error: editProfile.error,
-        modalShow: editProfile.modalShow
+        modalShow: editProfile.modalShow,
+        userId: auth.user.user.userId,
+        oldPhoto: auth.user.user.photoURL,
+        profileUpdated: editProfile.profileUpdated
     }
 }
 
 export default connect(mapStateToProps, { 
-    usernameEditProfileChanged, modalShowing, modalClosing
+    usernameEditProfileChanged, 
+    modalShowing, 
+    modalClosing, 
+    imageEditProfileChanged,
+    saveUpdatedProfile
 })(EditProfile);
