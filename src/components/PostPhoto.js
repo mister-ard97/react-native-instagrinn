@@ -14,7 +14,8 @@ class PostPhoto extends Component {
         caption: '',
         image: null,
         loading: false,
-        error: ''
+        error: '',
+        Redirect: false
     }
 
     onBtnOpenCameraPress = () => {

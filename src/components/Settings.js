@@ -58,7 +58,7 @@ class Settings extends Component {
 
 const mapStateToProps = ({ auth }) => {
     return {
-        user: auth.user
+        user: auth.user ? auth.user : null
     }
 }
 

@@ -42,6 +42,12 @@ class Home extends Component {
         })
     }
 
+    componentDidUpdate() {
+        if (!this.props.user) {
+            this.props.screenProps.rootStackNavigator.navigate('Login');
+        }
+    }
+
     renderPostList = () => {
         return this.state.postList.map((val, id) => {
             return (
@@ -102,7 +108,7 @@ class Home extends Component {
 
 const mapStateToProps = ({auth}) => {
     return {
-        user: auth.user
+        user: auth.user ? auth.user : null
     }
 }
 

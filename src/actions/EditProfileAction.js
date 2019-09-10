@@ -1,8 +1,7 @@
-import firebase from '@firebase/app';
+import firebase from 'firebase/app';
 import '@firebase/auth';
 import '@firebase/database';
 import '@firebase/storage';
-import RNFetchBlob from 'react-native-fetch-blob';
 
 import {
     EDIT_PROFILE_INIT, 
@@ -13,9 +12,10 @@ import {
     EDIT_PROFILE_SUCCESS,
     LOGIN_USER_SUCCESS,
     EDIT_PROFILE_FAIL,
-    EDIT_PROFILE
+    EDIT_PROFILE,
+    LOGIN_USER_AGAIN
 } from './types'
-
+import RNFetchBlob from 'react-native-fetch-blob';
 
 export const editProfileInit = (username, profileImage) => {
     return {
@@ -107,20 +107,15 @@ export const saveUpdatedProfile = (username, profileImage) => {
                                         photoURL: url
                                     })
                             })
+                           
                     })
-                   
-                    // return promise function 
-                    //firebase.database().ref('/post')
-                      //  .push({
-                        //    imageURL: url, caption: this.state.caption, userId: currentUser.uid
-                        // })
                 })
                 .then(() => {
                    dispatch({
                        type: EDIT_PROFILE_SUCCESS
                    })
                    dispatch({
-                       type: LOGIN_USER_SUCCESS,
+                       type: LOGIN_USER_AGAIN,
                        payload: { user: currentUser }
                    })
                 })
@@ -151,8 +146,8 @@ export const saveUpdatedProfile = (username, profileImage) => {
                     type: EDIT_PROFILE_SUCCESS
                 })
                 dispatch({
-                    type: LOGIN_USER_SUCCESS,
-                    payload: { user: currentUser }
+                    type: LOGIN_USER_AGAIN,
+                    payload: {user: currentUser}
                 })
             })
             .catch((err) => {

@@ -1,4 +1,5 @@
 import {
+    LOGIN_USER_AGAIN,
     LOGIN_USER_SUCCESS,
     LOGOUT_USER,
     LOGIN_USER_FAIL,
@@ -32,6 +33,12 @@ export default (state = INITIAL_STATE, action) => {
         case NOT_LOGIN_YET: 
             return {
                 ...INITIAL_STATE,
+                checkedAuth: true
+            }
+        case LOGIN_USER_AGAIN:
+            return {
+                ...INITIAL_STATE,
+                user: action.payload,
                 checkedAuth: true
             }
         default:

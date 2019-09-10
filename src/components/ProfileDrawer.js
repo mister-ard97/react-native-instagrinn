@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements'
 import Profile from './Profile';
 import Settings from './Settings';
 import EditProfile from './EditProfile';
+import EditPost from './EditPost';
 
 const ProfileDrawer = createAppContainer(createDrawerNavigator(
     {
@@ -24,6 +25,12 @@ const ProfileDrawer = createAppContainer(createDrawerNavigator(
         }, 
         EditProfile: {
             screen: EditProfile,
+            navigationOptions: {
+                drawerLabel: () => null
+            }
+        },
+        EditPost: {
+            screen: EditPost,
             navigationOptions: {
                 drawerLabel: () => null
             }
